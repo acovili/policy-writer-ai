@@ -7,6 +7,12 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
+// Root route to check if backend is live
+app.get("/", (req, res) => {
+  res.send("Policy Writer AI backend is running");
+});
+
+// POST endpoint to generate Privacy Policy
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
