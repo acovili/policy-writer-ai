@@ -1,19 +1,19 @@
-import OpenAI from "openai";
-import dotenv from "dotenv";
-import express from "express";
-import cors from "cors"; // <-- added CORS
+const express = require("express");
+const dotenv = require("dotenv");
+const OpenAI = require("openai");
+const cors = require("cors"); // CORS added
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // <-- enable CORS
+app.use(cors()); // enable CORS
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-// Helper function to get today's date in "Month Day, Year" format
+// Helper function to get today's date
 function getToday() {
   return new Date().toLocaleDateString("en-US", {
     year: "numeric",
@@ -22,7 +22,7 @@ function getToday() {
   });
 }
 
-// Root route to check if backend is live
+// Root route
 app.get("/", (req, res) => {
   res.send("Policy Writer AI backend is running");
 });
