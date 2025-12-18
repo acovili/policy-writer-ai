@@ -1,14 +1,24 @@
 {
   "name": "policy-writer-ai",
   "version": "1.0.0",
+  "description": "AI-powered generator for Privacy Policies, Terms & Conditions, and Cookie Policies",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js"
   },
+  "keywords": [
+    "AI",
+    "privacy-policy",
+    "terms-and-conditions",
+    "cookie-policy"
+  ],
+  "author": "Alexander Covili",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.19.2",
-    "dotenv": "^16.4.5",
-    "openai": "^4.10.0"
+    "express": "^4.18.2",
+    "dotenv": "^16.0.0",
+    "openai": "^4.0.0",
+    "cors": "^2.8.5"
   }
 }
-
