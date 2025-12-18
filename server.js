@@ -101,3 +101,52 @@ Use clear headers, professional legal tone, and include a disclaimer that this i
     res.status(500).json({ error: "Failed to generate terms and conditions" });
   }
 });
+app.post("/generate/cookie-policy", async (req, res) => {
+  try {
+    const {
+      businessName,
+      websiteUrl,
+      cookieTypes,
+      thirdParties,
+      consentMethod,
+      contactEmail
+    } = req.body;
+
+    const prompt = `
+Generate a professional Cookie Policy for a website.
+
+Business Name: ${businessName}
+Website URL: ${websiteUrl}
+Types of Cookies Used: ${cookieTypes.join(", ")}
+Third-party services using cookies: ${thirdParties.join(", ")}
+Consent Method: ${consentMethod}
+Contact Email: ${contactEmail}
+
+Include the following sections:
+- What Are Cookies
+- How We Use Cookies
+- Types of Cookies We Use
+- Third-Party Cookies
+- Managing Cookie Preferences
+- Consent
+- Updates to This Policy
+- Contact Information
+
+Use clear headers, professional tone, include a "Last Updated" date, and a disclaimer that this is not legal advice.
+`;
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: "You generate Cookie Policies. Not legal advice." },
+        { role: "user", content: prompt }
+      ]
+    });
+
+    const cookiePolicy = completion.choices[0].message.content;
+    res.json({ cookiePolicy });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to generate cookie policy" });
+  }
+});
